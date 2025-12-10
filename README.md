@@ -35,9 +35,8 @@ Bu proje **C#** ve **.NET 9.0** kullanılarak geliştirilmiştir.
     *   Windows 10 veya üzeri işletim sistemi.
     *   .NET 9.0 Desktop Runtime yüklü olmalıdır.
 2.  **Projeyi Çalıştırma:**
-    *   Projeyi bilgisayarınıza indirin (Clone veya Zip).
-    *   `KompanzasyonHesapSistemi.sln` dosyasını Visual Studio 2022 (veya daha yeni bir sürüm) ile açın.
-    *   Projeyi derleyin (Build) ve çalıştırın.
+    *   Projeyi Releases kısmından 64 bit veya 32 bit olarak bilgisayarınıza indirin (Clone veya Zip).
+    *   Exe olarak kurun ve çalıştırın.
 
 ### Lisans
 Bu proje MIT Lisansı altında sunulmaktadır.
