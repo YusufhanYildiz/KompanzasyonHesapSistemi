@@ -10,6 +10,8 @@ namespace KompanzasyonHesapSistemi.Models
         public decimal IsUcreti { get; set; }
         public decimal AlinanTutar { get; set; }
         public decimal Bakiye { get; set; }
+        public int SirketId { get; set; }
+        public string SirketAdi { get; set; } = string.Empty;
 
         public IsTakip()
         {

@@ -21,7 +21,8 @@
 *   **Dashboard:** Verilerinizi ve istatistiklerinizi görsel grafiklerle (LiveCharts, ScottPlot) analiz edin.
 *   **Raporlama:** Hesaplama sonuçlarını ve verileri **PDF** (QuestPDF) ve **Excel** (ClosedXML) formatlarında dışa aktarın.
 *   **Güvenlik:** Güvenli kullanıcı girişi ve şifreleme (BCrypt) ile verilerinizi koruyun.
-*   **Yedekleme:** Veri kaybını önlemek için otomatik veya manuel yedekleme sistemi.
+*   **Yedekleme:** Veri kaybını önlemek için otomatik veya manuel yedekleme ve geri yükleme sistemi.
+*   **Dil Sistemi:** Yeni dil özellikleri daha sonra eklenecek.
 
 ### Kullanılan Teknolojiler
 Bu proje **C#** ve **.NET 9.0** kullanılarak geliştirilmiştir.
@@ -56,7 +57,8 @@ Bu proje MIT Lisansı altında sunulmaktadır.
 *   **Dashboard:** Visual analytics and statistics using interactive charts (LiveCharts, ScottPlot).
 *   **Reporting:** Export calculation results and data to **PDF** (QuestPDF) and **Excel** (ClosedXML) formats.
 *   **Security:** Secure user authentication and data encryption (BCrypt).
-*   **Backup:** Automated and manual backup system to prevent data loss.
+*   **Backup:** Automatic or manual backup and restore system to prevent data loss.
+*   **Language System:** New language features will be added later.
 
 ### Technologies Used
 Built with **C#** and **.NET 9.0**.

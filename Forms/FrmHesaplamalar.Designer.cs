@@ -61,6 +61,8 @@
             btnKapat = new Button();
             btnExcelAktar = new Button();
             groupBox1 = new GroupBox();
+            label4 = new Label();
+            cmbSirketFiltrele = new ComboBox();
             btnFiltreyiTemizle = new Button();
             btnFiltrele = new Button();
             label2 = new Label();
@@ -154,9 +156,9 @@
             // 
             btnTemizle.BackColor = Color.Gray;
             btnTemizle.ForeColor = Color.White;
-            btnTemizle.Location = new Point(441, 173);
+            btnTemizle.Location = new Point(442, 174);
             btnTemizle.Name = "btnTemizle";
-            btnTemizle.Size = new Size(360, 35);
+            btnTemizle.Size = new Size(374, 35);
             btnTemizle.TabIndex = 11;
             btnTemizle.Text = "Temizle";
             btnTemizle.UseVisualStyleBackColor = false;
@@ -184,9 +186,9 @@
             btnHesapla.BackColor = Color.SeaGreen;
             btnHesapla.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
             btnHesapla.ForeColor = Color.White;
-            btnHesapla.Location = new Point(441, 127);
+            btnHesapla.Location = new Point(442, 128);
             btnHesapla.Name = "btnHesapla";
-            btnHesapla.Size = new Size(360, 40);
+            btnHesapla.Size = new Size(374, 40);
             btnHesapla.TabIndex = 10;
             btnHesapla.Text = "Hesapla ve Kaydet";
             btnHesapla.UseVisualStyleBackColor = false;
@@ -212,7 +214,7 @@
             // 
             // txtKapasitif
             // 
-            txtKapasitif.Location = new Point(601, 96);
+            txtKapasitif.Location = new Point(616, 97);
             txtKapasitif.Name = "txtKapasitif";
             txtKapasitif.Size = new Size(200, 23);
             txtKapasitif.TabIndex = 9;
@@ -237,7 +239,7 @@
             // 
             // txtEnduktif
             // 
-            txtEnduktif.Location = new Point(601, 61);
+            txtEnduktif.Location = new Point(616, 62);
             txtEnduktif.Name = "txtEnduktif";
             txtEnduktif.Size = new Size(200, 23);
             txtEnduktif.TabIndex = 8;
@@ -253,7 +255,7 @@
             // 
             // txtAktif
             // 
-            txtAktif.Location = new Point(601, 26);
+            txtAktif.Location = new Point(616, 27);
             txtAktif.Name = "txtAktif";
             txtAktif.Size = new Size(200, 23);
             txtAktif.TabIndex = 5;
@@ -417,6 +419,8 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(label4);
+            groupBox1.Controls.Add(cmbSirketFiltrele);
             groupBox1.Controls.Add(btnFiltreyiTemizle);
             groupBox1.Controls.Add(btnFiltrele);
             groupBox1.Controls.Add(label2);
@@ -430,13 +434,31 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Filtreleme";
             // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(19, 36);
+            label4.Name = "label4";
+            label4.Size = new Size(60, 15);
+            label4.TabIndex = 9;
+            label4.Text = "Şirket Adı:";
+            // 
+            // cmbSirketFiltrele
+            // 
+            cmbSirketFiltrele.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbSirketFiltrele.FormattingEnabled = true;
+            cmbSirketFiltrele.Location = new Point(97, 32);
+            cmbSirketFiltrele.Name = "cmbSirketFiltrele";
+            cmbSirketFiltrele.Size = new Size(168, 23);
+            cmbSirketFiltrele.TabIndex = 8;
+            // 
             // btnFiltreyiTemizle
             // 
             btnFiltreyiTemizle.BackColor = Color.Red;
             btnFiltreyiTemizle.ForeColor = Color.White;
-            btnFiltreyiTemizle.Location = new Point(148, 94);
+            btnFiltreyiTemizle.Location = new Point(148, 119);
             btnFiltreyiTemizle.Name = "btnFiltreyiTemizle";
-            btnFiltreyiTemizle.Size = new Size(100, 55);
+            btnFiltreyiTemizle.Size = new Size(100, 51);
             btnFiltreyiTemizle.TabIndex = 5;
             btnFiltreyiTemizle.Text = "Filtreyi Temizle";
             btnFiltreyiTemizle.UseVisualStyleBackColor = false;
@@ -446,9 +468,9 @@
             // 
             btnFiltrele.BackColor = Color.DarkGreen;
             btnFiltrele.ForeColor = Color.White;
-            btnFiltrele.Location = new Point(19, 94);
+            btnFiltrele.Location = new Point(19, 119);
             btnFiltrele.Name = "btnFiltrele";
-            btnFiltrele.Size = new Size(100, 55);
+            btnFiltrele.Size = new Size(100, 51);
             btnFiltrele.TabIndex = 4;
             btnFiltrele.Text = "Filtrele";
             btnFiltrele.UseVisualStyleBackColor = false;
@@ -457,7 +479,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(19, 30);
+            label2.Location = new Point(19, 67);
             label2.Name = "label2";
             label2.Size = new Size(91, 15);
             label2.TabIndex = 3;
@@ -466,7 +488,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(19, 59);
+            label1.Location = new Point(19, 96);
             label1.Name = "label1";
             label1.Size = new Size(63, 15);
             label1.TabIndex = 2;
@@ -475,7 +497,7 @@
             // dtpBitis
             // 
             dtpBitis.Format = DateTimePickerFormat.Short;
-            dtpBitis.Location = new Point(148, 53);
+            dtpBitis.Location = new Point(148, 90);
             dtpBitis.Name = "dtpBitis";
             dtpBitis.Size = new Size(117, 23);
             dtpBitis.TabIndex = 1;
@@ -483,7 +505,7 @@
             // dtpBaslangic
             // 
             dtpBaslangic.Format = DateTimePickerFormat.Short;
-            dtpBaslangic.Location = new Point(148, 24);
+            dtpBaslangic.Location = new Point(148, 61);
             dtpBaslangic.Name = "dtpBaslangic";
             dtpBaslangic.Size = new Size(117, 23);
             dtpBaslangic.TabIndex = 0;
@@ -573,5 +595,7 @@
         private TextBox txtOncekiAktif;
         private Label lblOncekiAktif;
         private Label label3;
+        private Label label4;
+        private ComboBox cmbSirketFiltrele;
     }
 }

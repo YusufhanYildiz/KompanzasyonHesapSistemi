@@ -265,61 +265,39 @@ namespace KompanzasyonHesapSistemi.Services
                             {
                                 table.ColumnsDefinition(columns =>
                                 {
-                                    columns.ConstantColumn(40);  // ID
-                                    columns.ConstantColumn(70);  // Tarih
-                                    columns.RelativeColumn(3);   // Açıklama
-                                    columns.RelativeColumn(1);   // İş Ücreti
-                                    columns.RelativeColumn(1);   // Alınan
-                                    columns.RelativeColumn(1);   // Bakiye
+                                    columns.ConstantColumn(40); // ID
+                                    columns.ConstantColumn(70); // Tarih
+                                    columns.RelativeColumn(2);  // Şirket Adı
+                                    columns.RelativeColumn(3);  // İş Açıklaması
+                                    columns.RelativeColumn(1.5f); // İş Ücreti
+                                    columns.RelativeColumn(1.5f); // Alınan Tutar
+                                    columns.RelativeColumn(1.5f); // Bakiye
                                 });
 
-                                // Başlık
                                 table.Header(header =>
                                 {
-                                    header.Cell().Background(Colors.Orange.Darken2).Padding(5)
-                                        .Text("ID").FontColor(Colors.White).Bold();
-
-                                    header.Cell().Background(Colors.Orange.Darken2).Padding(5)
-                                        .Text("Tarih").FontColor(Colors.White).Bold();
-
-                                    header.Cell().Background(Colors.Orange.Darken2).Padding(5)
-                                        .Text("İş Açıklaması").FontColor(Colors.White).Bold();
-
-                                    header.Cell().Background(Colors.Orange.Darken2).Padding(5)
-                                        .Text("İş Ücreti (₺)").FontColor(Colors.White).Bold();
-
-                                    header.Cell().Background(Colors.Orange.Darken2).Padding(5)
-                                        .Text("Alınan (₺)").FontColor(Colors.White).Bold();
-
-                                    header.Cell().Background(Colors.Orange.Darken2).Padding(5)
-                                        .Text("Bakiye (₺)").FontColor(Colors.White).Bold();
+                                    header.Cell().Background(Colors.Orange.Darken2).Padding(5).Text("ID").FontColor(Colors.White).Bold();
+                                    header.Cell().Background(Colors.Orange.Darken2).Padding(5).Text("Tarih").FontColor(Colors.White).Bold();
+                                    header.Cell().Background(Colors.Orange.Darken2).Padding(5).Text("Şirket Adı").FontColor(Colors.White).Bold();
+                                    header.Cell().Background(Colors.Orange.Darken2).Padding(5).Text("Açıklama").FontColor(Colors.White).Bold();
+                                    header.Cell().Background(Colors.Orange.Darken2).Padding(5).Text("Ücret (₺)").FontColor(Colors.White).Bold();
+                                    header.Cell().Background(Colors.Orange.Darken2).Padding(5).Text("Alınan (₺)").FontColor(Colors.White).Bold();
+                                    header.Cell().Background(Colors.Orange.Darken2).Padding(5).Text("Bakiye (₺)").FontColor(Colors.White).Bold();
                                 });
 
-                                // Veri satırları
                                 foreach (var is_ in isler)
                                 {
-                                    var bgColor = is_.Bakiye == 0
-                                        ? Colors.Green.Lighten5
-                                        : Colors.Yellow.Lighten4;
+                                    var bgColor = is_.Bakiye > 0 ? Colors.Grey.Lighten4 : Colors.White;
 
-                                    table.Cell().Background(bgColor).BorderBottom(1).BorderColor(Colors.Grey.Lighten2)
-                                        .Padding(5).Text(is_.Id.ToString());
-
-                                    table.Cell().Background(bgColor).BorderBottom(1).BorderColor(Colors.Grey.Lighten2)
-                                        .Padding(5).Text(is_.Tarih.ToString("dd.MM.yyyy"));
-
-                                    table.Cell().Background(bgColor).BorderBottom(1).BorderColor(Colors.Grey.Lighten2)
-                                        .Padding(5).Text(is_.IsAciklamasi);
-
-                                    table.Cell().Background(bgColor).BorderBottom(1).BorderColor(Colors.Grey.Lighten2)
-                                        .Padding(5).AlignRight().Text($"₺{is_.IsUcreti:N2}");
-
-                                    table.Cell().Background(bgColor).BorderBottom(1).BorderColor(Colors.Grey.Lighten2)
-                                        .Padding(5).AlignRight().Text($"₺{is_.AlinanTutar:N2}");
+                                    table.Cell().Background(bgColor).BorderBottom(1).BorderColor(Colors.Grey.Lighten2).Padding(5).Text(is_.Id.ToString());
+                                    table.Cell().Background(bgColor).BorderBottom(1).BorderColor(Colors.Grey.Lighten2).Padding(5).Text(is_.Tarih.ToString("dd.MM.yy"));
+                                    table.Cell().Background(bgColor).BorderBottom(1).BorderColor(Colors.Grey.Lighten2).Padding(5).Text(is_.SirketAdi);
+                                    table.Cell().Background(bgColor).BorderBottom(1).BorderColor(Colors.Grey.Lighten2).Padding(5).Text(is_.IsAciklamasi);
+                                    table.Cell().Background(bgColor).BorderBottom(1).BorderColor(Colors.Grey.Lighten2).Padding(5).AlignRight().Text($"₺{is_.IsUcreti:N2}");
+                                    table.Cell().Background(bgColor).BorderBottom(1).BorderColor(Colors.Grey.Lighten2).Padding(5).AlignRight().Text($"₺{is_.AlinanTutar:N2}");
 
                                     var bakiyeColor = is_.Bakiye >= 0 ? Colors.Green.Darken2 : Colors.Red.Darken2;
-                                    table.Cell().Background(bgColor).BorderBottom(1).BorderColor(Colors.Grey.Lighten2)
-                                        .Padding(5).AlignRight().Text($"₺{is_.Bakiye:N2}").FontColor(bakiyeColor).Bold();
+                                    table.Cell().Background(bgColor).BorderBottom(1).BorderColor(Colors.Grey.Lighten2).Padding(5).AlignRight().Text($"₺{is_.Bakiye:N2}").FontColor(bakiyeColor).Bold();
                                 }
                             });
                         });

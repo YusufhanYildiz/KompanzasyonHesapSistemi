@@ -331,3 +331,4 @@ C:\Users\Yusufhan\Desktop\YedeklemeliHali\KompanzasyonHesapSistemi\KompanzasyonH
 C:\Users\Yusufhan\Desktop\YedeklemeliHali\KompanzasyonHesapSistemi\KompanzasyonHesapSistemi\bin\Release\net9.0-windows\win-x64\BCrypt.Net-Next.dll
 C:\Users\Yusufhan\Desktop\YedeklemeliHali\KompanzasyonHesapSistemi\KompanzasyonHesapSistemi\obj\Release\net9.0-windows\win-x64\KompanzasyonHesapSistemi.Forms.FrmIletisim.resources
 C:\Users\Yusufhan\Desktop\YedeklemeliHali\KompanzasyonHesapSistemi\KompanzasyonHesapSistemi\obj\Release\net9.0-windows\win-x64\KompanzasyonHesapSistemi.Forms.FrmSifreDegistir.resources
+C:\Users\Yusufhan\Desktop\YedeklemeliHali\KompanzasyonHesapSistemi\KompanzasyonHesapSistemi\obj\Release\net9.0-windows\win-x64\KompanzasyonHesapSistemi.Forms.FrmYedekleme.resources

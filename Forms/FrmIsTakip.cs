@@ -17,6 +17,7 @@ namespace KompanzasyonHesapSistemi.Forms
         private readonly JsonService _jsonService;
         private readonly ExcelService _excelService;
         private const string ISTAKIP_FILE = "istakip.json";
+        private const string SIRKETLER_FILE = "sirketler.json";
         private int _secilenIsId = 0;
 
         public FrmIsTakip()
@@ -28,6 +29,7 @@ namespace KompanzasyonHesapSistemi.Forms
             ThemeHelper.ApplyTheme(this);
 
             DataGridViewAyarlari();
+            SirketleriYukle();
             IsleriYukle();
             OzetBilgileriGuncelle();
 
@@ -83,6 +85,36 @@ namespace KompanzasyonHesapSistemi.Forms
             catch { }
         }
         /// <summary>
+        /// Şirketleri ComboBox'a yükle
+        /// </summary>
+        private void SirketleriYukle()
+        {
+            try
+            {
+                var sirketler = _jsonService.ReadList<Sirket>(SIRKETLER_FILE);
+
+                // Veri girişi için
+                cmbSirket.DataSource = null;
+                cmbSirket.DataSource = new List<Sirket>(sirketler);
+                cmbSirket.DisplayMember = "SirketAdi";
+                cmbSirket.ValueMember = "Id";
+                cmbSirket.SelectedIndex = -1;
+
+                // Filtreleme için
+                var filtreSirketler = new List<Sirket>(sirketler);
+                cmbSirketFiltrele.DataSource = null;
+                cmbSirketFiltrele.DataSource = filtreSirketler;
+                cmbSirketFiltrele.DisplayMember = "SirketAdi";
+                cmbSirketFiltrele.ValueMember = "Id";
+                cmbSirketFiltrele.SelectedIndex = -1;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Şirketler yüklenirken hata: {ex.Message}", "Hata",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        /// <summary>
         /// DataGridView ayarları
         /// </summary>
         private void DataGridViewAyarlari()
@@ -105,6 +137,14 @@ namespace KompanzasyonHesapSistemi.Forms
                 DataPropertyName = "Tarih",
                 Width = 100,
                 DefaultCellStyle = new DataGridViewCellStyle { Format = "dd.MM.yyyy" }
+            });
+
+            dgvIsler.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "SirketAdi",
+                HeaderText = "Şirket Adı",
+                DataPropertyName = "SirketAdi",
+                Width = 150
             });
 
             dgvIsler.Columns.Add(new DataGridViewTextBoxColumn
@@ -154,18 +194,7 @@ namespace KompanzasyonHesapSistemi.Forms
                 dgvIsler.DataSource = isler;
 
                 // Bakiye durumuna göre satır renklendirme
-                foreach (DataGridViewRow row in dgvIsler.Rows)
-                {
-                    decimal bakiye = Convert.ToDecimal(row.Cells["Bakiye"].Value);
-                    if (bakiye > 0)
-                    {
-                        row.DefaultCellStyle.BackColor = Color.LightYellow;
-                    }
-                    else if (bakiye == 0)
-                    {
-                        row.DefaultCellStyle.BackColor = Color.LightGreen;
-                    }
-                }
+                RenklendirmeUygula();
 
                 if (dgvIsler.Rows.Count > 0)
                 {
@@ -185,12 +214,32 @@ namespace KompanzasyonHesapSistemi.Forms
         {
             try
             {
-                var isler = _jsonService.ReadList<IsTakip>(ISTAKIP_FILE);
+                if (dgvIsler.Rows.Count == 0)
+                {
+                    lblToplamIsSayisi.Text = "Toplam İş: 0";
+                    lblToplamIsUcreti.Text = "Toplam İş Ücreti: ₺0,00";
+                    lblToplamAlinan.Text = "Toplam Alınan: ₺0,00";
+                    lblToplamBakiye.Text = "TOPLAM BAKİYE: ₺0,00";
+                    lblToplamBakiye.ForeColor = Color.Navy;
+                    return;
+                }
 
-                int toplamIsSayisi = isler.Count;
-                decimal toplamIsUcreti = isler.Sum(i => i.IsUcreti);
-                decimal toplamAlinan = isler.Sum(i => i.AlinanTutar);
-                decimal toplamBakiye = isler.Sum(i => i.Bakiye);
+                int toplamIsSayisi = dgvIsler.Rows.Count;
+                decimal toplamIsUcreti = 0;
+                decimal toplamAlinan = 0;
+                decimal toplamBakiye = 0;
+
+                foreach (DataGridViewRow row in dgvIsler.Rows)
+                {
+                    if (row.Cells["IsUcreti"].Value != null)
+                        toplamIsUcreti += Convert.ToDecimal(row.Cells["IsUcreti"].Value);
+
+                    if (row.Cells["AlinanTutar"].Value != null)
+                        toplamAlinan += Convert.ToDecimal(row.Cells["AlinanTutar"].Value);
+
+                    if (row.Cells["Bakiye"].Value != null)
+                        toplamBakiye += Convert.ToDecimal(row.Cells["Bakiye"].Value);
+                }
 
                 lblToplamIsSayisi.Text = $"Toplam İş: {toplamIsSayisi}";
                 lblToplamIsUcreti.Text = $"Toplam İş Ücreti: ₺{toplamIsUcreti:N2}";
@@ -214,10 +263,71 @@ namespace KompanzasyonHesapSistemi.Forms
             txtIsUcreti.Clear();
             txtAlinanTutar.Clear();
             dtpTarih.Value = DateTime.Now;
+            cmbSirket.SelectedIndex = -1;
             lblBakiyeGoster.Text = "Bakiye: ₺0,00";
             lblBakiyeGoster.ForeColor = Color.Navy;
             _secilenIsId = 0;
             txtIsAciklamasi.Focus();
+        }
+
+        private void btnFiltrele_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var baslangicTarihi = dtpBaslangic.Value.Date;
+                var bitisTarihi = dtpBitis.Value.Date;
+
+                if (baslangicTarihi > bitisTarihi)
+                {
+                    MessageBox.Show("Başlangıç tarihi, bitiş tarihinden sonra olamaz!", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                var isler = _jsonService.ReadList<IsTakip>(ISTAKIP_FILE);
+                var filtrelenmisListe = isler
+                    .Where(i => i.Tarih.Date >= baslangicTarihi && i.Tarih.Date <= bitisTarihi);
+
+                // Şirket filtresi
+                if (cmbSirketFiltrele.SelectedIndex != -1 && cmbSirketFiltrele.SelectedItem is Sirket secilenSirket)
+                {
+                    filtrelenmisListe = filtrelenmisListe.Where(i => i.SirketId == secilenSirket.Id);
+                }
+
+                dgvIsler.DataSource = null;
+                dgvIsler.DataSource = filtrelenmisListe.ToList();
+                
+                // Renklendirmeyi tekrar uygula
+                RenklendirmeUygula();
+                OzetBilgileriGuncelle();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Filtreleme hatası: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnFiltreyiTemizle_Click(object sender, EventArgs e)
+        {
+            cmbSirketFiltrele.SelectedIndex = -1;
+            dtpBaslangic.Value = DateTime.Now;
+            dtpBitis.Value = DateTime.Now;
+            IsleriYukle();
+        }
+
+        private void RenklendirmeUygula()
+        {
+            foreach (DataGridViewRow row in dgvIsler.Rows)
+            {
+                decimal bakiye = Convert.ToDecimal(row.Cells["Bakiye"].Value);
+                if (bakiye > 0)
+                {
+                    row.DefaultCellStyle.BackColor = Color.LightYellow;
+                }
+                else if (bakiye == 0)
+                {
+                    row.DefaultCellStyle.BackColor = Color.LightGreen;
+                }
+            }
         }
 
         private void btnKaydet_Click(object sender, EventArgs e)
@@ -254,6 +364,13 @@ namespace KompanzasyonHesapSistemi.Forms
                     }
                 }
 
+                // Şirket seçimi kontrolü
+                if (cmbSirket.SelectedItem is not Sirket secilenSirket)
+                {
+                    MessageBox.Show("Lütfen bir şirket seçiniz!", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 // Mevcut işleri oku
                 var isler = _jsonService.ReadList<IsTakip>(ISTAKIP_FILE);
 
@@ -262,6 +379,8 @@ namespace KompanzasyonHesapSistemi.Forms
                 {
                     Id = isler.Count > 0 ? isler.Max(i => i.Id) + 1 : 1,
                     Tarih = dtpTarih.Value,
+                    SirketId = secilenSirket.Id,
+                    SirketAdi = secilenSirket.SirketAdi,
                     IsAciklamasi = txtIsAciklamasi.Text.Trim(),
                     IsUcreti = isUcreti,
                     AlinanTutar = alinanTutar
@@ -331,12 +450,21 @@ namespace KompanzasyonHesapSistemi.Forms
                     }
                 }
 
+                // Şirket seçimi kontrolü
+                if (cmbSirket.SelectedItem is not Sirket secilenSirket)
+                {
+                    MessageBox.Show("Lütfen bir şirket seçiniz!", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 var isler = _jsonService.ReadList<IsTakip>(ISTAKIP_FILE);
                 var guncellenecekIs = isler.FirstOrDefault(i => i.Id == _secilenIsId);
 
                 if (guncellenecekIs != null)
                 {
                     guncellenecekIs.Tarih = dtpTarih.Value;
+                    guncellenecekIs.SirketId = secilenSirket.Id;
+                    guncellenecekIs.SirketAdi = secilenSirket.SirketAdi;
                     guncellenecekIs.IsAciklamasi = txtIsAciklamasi.Text.Trim();
                     guncellenecekIs.IsUcreti = isUcreti;
                     guncellenecekIs.AlinanTutar = alinanTutar;
@@ -428,6 +556,21 @@ namespace KompanzasyonHesapSistemi.Forms
                     txtIsAciklamasi.Text = row.Cells["IsAciklamasi"].Value?.ToString() ?? string.Empty;
                     txtIsUcreti.Text = Convert.ToDecimal(row.Cells["IsUcreti"].Value).ToString("F2");
                     txtAlinanTutar.Text = Convert.ToDecimal(row.Cells["AlinanTutar"].Value).ToString("F2");
+
+                    // Şirketi seç
+                    string? sirketAdi = row.Cells["SirketAdi"].Value?.ToString();
+                    if (sirketAdi != null)
+                    {
+                        for (int i = 0; i < cmbSirket.Items.Count; i++)
+                        {
+                            var sirket = cmbSirket.Items[i] as Sirket;
+                            if (sirket != null && sirket.SirketAdi == sirketAdi)
+                            {
+                                cmbSirket.SelectedIndex = i;
+                                break;
+                            }
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -451,9 +594,9 @@ namespace KompanzasyonHesapSistemi.Forms
         {
             try
             {
-                var isler = _jsonService.ReadList<IsTakip>(ISTAKIP_FILE);
+                var isler = dgvIsler.DataSource as List<IsTakip>;
 
-                if (isler.Count == 0)
+                if (isler == null || isler.Count == 0)
                 {
                     MessageBox.Show("Rapor oluşturmak için en az bir iş kaydı olmalıdır!", "Uyarı",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);

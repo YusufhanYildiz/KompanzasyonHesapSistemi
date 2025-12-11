@@ -302,6 +302,7 @@ C:\Users\Yusufhan\Desktop\YedeklemeliHali\KompanzasyonHesapSistemi\KompanzasyonH
 C:\Users\Yusufhan\Desktop\YedeklemeliHali\KompanzasyonHesapSistemi\KompanzasyonHesapSistemi\obj\Debug\net9.0-windows\KompanzasyonHesapSistemi.Forms.FrmIsTakip.resources
 C:\Users\Yusufhan\Desktop\YedeklemeliHali\KompanzasyonHesapSistemi\KompanzasyonHesapSistemi\obj\Debug\net9.0-windows\KompanzasyonHesapSistemi.Forms.FrmSifreDegistir.resources
 C:\Users\Yusufhan\Desktop\YedeklemeliHali\KompanzasyonHesapSistemi\KompanzasyonHesapSistemi\obj\Debug\net9.0-windows\KompanzasyonHesapSistemi.Forms.FrmSirketIslemleri.resources
+C:\Users\Yusufhan\Desktop\YedeklemeliHali\KompanzasyonHesapSistemi\KompanzasyonHesapSistemi\obj\Debug\net9.0-windows\KompanzasyonHesapSistemi.Forms.FrmYedekleme.resources
 C:\Users\Yusufhan\Desktop\YedeklemeliHali\KompanzasyonHesapSistemi\KompanzasyonHesapSistemi\obj\Debug\net9.0-windows\KompanzasyonHesapSistemi.csproj.GenerateResource.cache
 C:\Users\Yusufhan\Desktop\YedeklemeliHali\KompanzasyonHesapSistemi\KompanzasyonHesapSistemi\obj\Debug\net9.0-windows\KompanzasyonHesapSistemi.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Yusufhan\Desktop\YedeklemeliHali\KompanzasyonHesapSistemi\KompanzasyonHesapSistemi\obj\Debug\net9.0-windows\KompanzasyonHesapSistemi.AssemblyInfoInputs.cache

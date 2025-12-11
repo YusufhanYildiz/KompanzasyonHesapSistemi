@@ -36,7 +36,7 @@
             pnlMenu = new Panel();
             btnIletisim = new Button();
             btnSifreDegistir = new Button();
-            btnManualBackup = new Button();
+            btnYedekleme = new Button();
             btnDashboard = new Button();
             btnIsTakip = new Button();
             btnHesaplamalar = new Button();
@@ -100,7 +100,7 @@
             pnlMenu.BackColor = Color.WhiteSmoke;
             pnlMenu.Controls.Add(btnIletisim);
             pnlMenu.Controls.Add(btnSifreDegistir);
-            pnlMenu.Controls.Add(btnManualBackup);
+            pnlMenu.Controls.Add(btnYedekleme);
             pnlMenu.Controls.Add(btnDashboard);
             pnlMenu.Controls.Add(btnIsTakip);
             pnlMenu.Controls.Add(btnHesaplamalar);
@@ -135,17 +135,17 @@
             btnSifreDegistir.UseVisualStyleBackColor = false;
             btnSifreDegistir.Click += btnSifreDegistir_Click;
             // 
-            // btnManualBackup
+            // btnYedekleme
             // 
-            btnManualBackup.BackColor = Color.Crimson;
-            btnManualBackup.ForeColor = Color.White;
-            btnManualBackup.Location = new Point(10, 252);
-            btnManualBackup.Name = "btnManualBackup";
-            btnManualBackup.Size = new Size(180, 50);
-            btnManualBackup.TabIndex = 4;
-            btnManualBackup.Text = "Manuel Yedekleme";
-            btnManualBackup.UseVisualStyleBackColor = false;
-            btnManualBackup.Click += btnManualBackup_Click;
+            btnYedekleme.BackColor = Color.Crimson;
+            btnYedekleme.ForeColor = Color.White;
+            btnYedekleme.Location = new Point(10, 252);
+            btnYedekleme.Name = "btnYedekleme";
+            btnYedekleme.Size = new Size(180, 50);
+            btnYedekleme.TabIndex = 4;
+            btnYedekleme.Text = "Yedekleme ve Geri Yükleme";
+            btnYedekleme.UseVisualStyleBackColor = false;
+            btnYedekleme.Click += btnYedekleme_Click;
             // 
             // btnDashboard
             // 
@@ -257,7 +257,7 @@
         private Label lblMesaj;
         private System.Windows.Forms.Timer timerSaat;
         private Button btnDashboard;
-        private Button btnManualBackup;
+        private Button btnYedekleme;
         private Button btnSifreDegistir;
         private Button btnIletisim;
     }

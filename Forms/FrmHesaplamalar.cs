@@ -54,6 +54,15 @@ namespace KompanzasyonHesapSistemi.Forms
                 {
                     cmbSirket.SelectedIndex = -1;
                 }
+
+                // Filtreleme combobox'ını da doldur
+                // Önce boş bir seçenek ekleyelim veya varsayılan olarak seçili gelmesin
+                var filtreSirketler = new List<Sirket>(sirketler);
+                cmbSirketFiltrele.DataSource = null;
+                cmbSirketFiltrele.DataSource = filtreSirketler;
+                cmbSirketFiltrele.DisplayMember = "SirketAdi";
+                cmbSirketFiltrele.ValueMember = "Id";
+                cmbSirketFiltrele.SelectedIndex = -1;
             }
             catch (Exception ex)
             {
@@ -585,10 +594,15 @@ namespace KompanzasyonHesapSistemi.Forms
 
                 var tumHesaplamalar = _hesaplamaService.TumHesaplamalariGetir();
                 var filtrelenmisListe = tumHesaplamalar
-                    .Where(h => h.Tarih.Date >= baslangicTarihi && h.Tarih.Date <= bitisTarihi)
-                    .ToList();
+                    .Where(h => h.Tarih.Date >= baslangicTarihi && h.Tarih.Date <= bitisTarihi);
 
-                GosterimListesiniGuncelle(filtrelenmisListe);
+                // Şirket filtresi
+                if (cmbSirketFiltrele.SelectedIndex != -1 && cmbSirketFiltrele.SelectedItem is Sirket secilenSirket)
+                {
+                    filtrelenmisListe = filtrelenmisListe.Where(h => h.SirketId == secilenSirket.Id);
+                }
+
+                GosterimListesiniGuncelle(filtrelenmisListe.ToList());
             }
             catch (Exception ex)
             {
@@ -599,6 +613,9 @@ namespace KompanzasyonHesapSistemi.Forms
 
         private void btnFiltreyiTemizle_Click(object sender, EventArgs e)
         {
+            cmbSirketFiltrele.SelectedIndex = -1;
+            dtpBaslangic.Value = DateTime.Now;
+            dtpBitis.Value = DateTime.Now;
             HesaplamalariYukle();
         }
 

@@ -298,6 +298,7 @@ namespace KompanzasyonHesapSistemi.Forms
             Controls.Add(formsPlotCubuk);
             Controls.Add(formsPlotPasta);
             Controls.Add(pnlKartlar);
+            MaximizeBox = false;
             Name = "FrmDashboard";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Dashboard - Genel Bakış";

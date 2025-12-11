@@ -104,6 +104,54 @@ namespace KompanzasyonHesapSistemi.Services
             }
         }
 
+        public async Task<bool> RestoreBackupAsync(string backupDirectoryPath)
+        {
+            if (!Directory.Exists(backupDirectoryPath))
+            {
+                Console.WriteLine($"Backup directory not found: {backupDirectoryPath}");
+                return false;
+            }
+
+            try
+            {
+                foreach (var fileName in _settings.FilesToBackup)
+                {
+                    string sourceFilePath = Path.Combine(backupDirectoryPath, fileName);
+                    if (File.Exists(sourceFilePath))
+                    {
+                        string destinationFilePath = Path.Combine(_dataDirectory, fileName);
+                        await Task.Run(() => File.Copy(sourceFilePath, destinationFilePath, overwrite: true));
+                        Console.WriteLine($"Restored {fileName} from {backupDirectoryPath}");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"File not found in backup for restore: {fileName}");
+                    }
+                }
+                
+                Console.WriteLine("Restore completed successfully.");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error during restore: {ex.Message}");
+                return false;
+            }
+        }
+
+        public Dictionary<string, string> GetAvailableBackups()
+        {
+            if (!Directory.Exists(_settings.BackupPath))
+            {
+                return new Dictionary<string, string>();
+            }
+
+            return Directory.GetDirectories(_settings.BackupPath)
+                            .Select(d => new DirectoryInfo(d))
+                            .OrderByDescending(d => d.Name)
+                            .ToDictionary(d => d.Name, d => d.FullName);
+        }
+
         private void CleanOldBackups()
         {
             if (!Directory.Exists(_settings.BackupPath))
