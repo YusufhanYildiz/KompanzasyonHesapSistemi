@@ -40,7 +40,7 @@ Bu proje **C#** ve **.NET Framework 4.8** kullanılarak geliştirilmiştir.
     *   Releases sayfasından en son sürümü indirin.
     *   İster `Setup.exe` ile kurun, ister `Portable` sürümü indirip direkt çalıştırın.
 2.  **Gereksinimler:**
-    *   Windows 10 veya üzeri işletim sistemi.
+    *   Windows 7 veya üzeri işletim sistemi.
     *   .NET Framework 4.8 Runtime (Windows 10/11'de genellikle yüklü gelir).
 
 ### Lisans
@@ -80,7 +80,7 @@ Built with **C#** and **.NET Framework 4.8**.
     *   Download the latest release from the Releases page.
     *   Install via `Setup.exe` or simply run the `Portable` version.
 2.  **Prerequisites:**
-    *   Windows 10 or later.
+    *   Windows 7 or later.
     *   .NET Framework 4.8 Runtime (usually included in Windows 10/11).
 
 ### License
