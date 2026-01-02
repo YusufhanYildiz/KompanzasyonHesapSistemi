@@ -1,0 +1,51 @@
+name: Release Application
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.x'
+
+      - name: Install Velopack CLI
+        run: dotnet tool install -g vpk
+
+      - name: Extract Version
+        id: vars
+        shell: bash
+        run: |
+          # v1.6.0 -> 1.6.0
+          VERSION=${GITHUB_REF#refs/tags/v}
+          echo "tag=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Restore Dependencies
+        run: dotnet restore
+
+      - name: Build and Publish
+        run: dotnet publish -c Release -o ./publish
+
+      - name: Create Velopack Package
+        run: |
+          vpk pack --packId "KompanzasyonHesap" --packVersion ${{ steps.vars.outputs.tag }} --packDir "./publish" --mainExe "KompanzasyonHesapSistemi.exe" --icon "Calculator_30001.ico" --outputDir "./Releases"
+
+      - name: Upload to GitHub Release
+        shell: pwsh
+        env:
+          RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+        run: |
+          vpk upload github --repoUrl "https://github.com/${{ github.repository }}" --token "$env:RELEASE_TOKEN" --publish --outputDir "./Releases" --tag "v${{ steps.vars.outputs.tag }}"

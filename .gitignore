@@ -1,0 +1,10 @@
+bin/
+obj/
+.vs/
+publish/
+Releases/
+*.user
+# Ensure sensitive files are not accidentally committed
+# Models/AdminCredentials.cs has been sanitized for public push, but keep in mind for future sensitive content
+*.json.local
+*.config.user
