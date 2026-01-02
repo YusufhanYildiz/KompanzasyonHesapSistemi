@@ -4,7 +4,7 @@
 ![Platform](https://img.shields.io/badge/platform-Windows-lightgrey.svg)
 ![Framework](https://img.shields.io/badge/.NET_Framework-4.8-purple.svg)
 
-[Türkçe](#türkçe) | [English](#english)
+[Türkçe](#türkçe)
 
 ---
 
@@ -45,43 +45,3 @@ Bu proje **C#** ve **.NET Framework 4.8** kullanılarak geliştirilmiştir.
 
 ### Lisans
 Bu proje MIT Lisansı altında sunulmaktadır.
-
----
-
-<a name="english"></a>
-## 🇺🇸 English
-
-### About the Project
-**Compensation Calculation System** is a professional desktop application designed for electrical engineers and technicians. It enables precise electrical compensation calculations, management of client/company records, and tracking of workflow processes. It offers a modern user experience with **Material Design** UI and supports **USB portable** operation.
-
-### Key Features
-*   **Advanced Calculations:** Automatically calculates Active/Reactive power, power factor, and capacitor/reactor requirements.
-*   **Company Management:** Detailed database management for client companies.
-*   **Job Tracking:** Integrated module to track projects and daily tasks.
-*   **Dashboard:** Visual analytics and statistics using interactive charts (ScottPlot).
-*   **Reporting:** Export calculation results and data to **PDF** (iText7) and **Excel** (ClosedXML) formats.
-*   **Security:** Secure user authentication and data encryption (BCrypt).
-*   **Backup:** Automatic or manual backup and restore system to prevent data loss.
-*   **Portable Mode:** Can run directly from a USB drive without installation; data and logs travel with the app.
-*   **Auto-Update:** Keeps the application up-to-date using Velopack.
-
-### Technologies Used
-Built with **C#** and **.NET Framework 4.8**.
-*   **UI:** Windows Forms (MaterialSkin 2)
-*   **Data Management:** JSON (Newtonsoft.Json)
-*   **Reporting:** ClosedXML (Excel), iText7 (PDF)
-*   **Charting:** ScottPlot
-*   **Logging:** Serilog
-*   **Deployment & Update:** Velopack
-*   **Security:** BCrypt.Net-Next
-
-### Installation & Usage
-1.  **Download:**
-    *   Download the latest release from the Releases page.
-    *   Install via `Setup.exe` or simply run the `Portable` version.
-2.  **Prerequisites:**
-    *   Windows 7 or later.
-    *   .NET Framework 4.8 Runtime (usually included in Windows 10/11).
-
-### License
-This project is licensed under the MIT License.
