@@ -1,10 +1,26 @@
+# Visual Studio
+.vs/
 bin/
 obj/
-.vs/
-publish/
-Releases/
+[Oo]bj/
+[Bb]in/
 *.user
-# Ensure sensitive files are not accidentally committed
-# Models/AdminCredentials.cs has been sanitized for public push, but keep in mind for future sensitive content
-*.json.local
-*.config.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Executables
+*.exe
+*.dll
+*.pdb
+
+# Project Reports (Ignored as requested)
+PROJECT_ARCHITECTURAL_MASTERY_REPORT.md
+PROJECT_DETAILED_ANALYSIS_REPORT.md
+PROJECT_OPTIMIZATION_REPORT.md
+ultrathinks.md
+velopack_commands.md
+
+# OS
+Thumbs.db
+Desktop.ini
