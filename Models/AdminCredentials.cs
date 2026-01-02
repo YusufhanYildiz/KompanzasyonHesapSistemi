@@ -15,8 +15,7 @@ namespace KompanzasyonHesapSistemi.Models
         public DateTime? LastLoginAt { get; set; }
 
         /// <summary>
-        /// İlk kurulum için varsayılan şifreyi hash'leyerek oluşturur
-        /// Varsayılan şifre: "KompAdmin2025!" - İlk girişte değiştirin!
+        /// İlk kurulum için yönetici yapılandırmasını oluşturur.
         /// </summary>
         public static AdminCredentials CreateDefault()
         {
