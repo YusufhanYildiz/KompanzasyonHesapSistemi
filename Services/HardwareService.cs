@@ -5,26 +5,27 @@ using System.Text;
 
 namespace KompanzasyonHesapSistemi.Services
 {
-    public static class HardwareService
+    public class HardwareService
     {
         /// <summary>
         /// Bilgisayar için benzersiz bir donanım kimliği oluşturur.
         /// CPU ID'sini alır ve bunu SHA256 ile hash'ler.
         /// </summary>
         /// <returns>Benzersiz hash'lenmiş donanım kimliği.</returns>
-        public static string GetHardwareId()
+        private string? _cachedHwId;
+
+        public string GetHardwareId()
         {
+            if (!string.IsNullOrEmpty(_cachedHwId)) return _cachedHwId!;
+
             try
             {
                 string cpuId = GetCpuId();
                 if (string.IsNullOrEmpty(cpuId))
                 {
-                    // Alternatif bir veya daha fazla ID birleştirilebilir, örn: anakart, disk
-                    // Şimdilik basit bir sabit değer dönüyoruz hata durumunda.
                     cpuId = "UNABLE_TO_READ_HWID";
                 }
 
-                // ID'yi her zaman aynı formatta ve güvenli bir şekilde saklamak için hash'leyelim.
                 using (SHA256 sha256 = SHA256.Create())
                 {
                     byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(cpuId));
@@ -33,17 +34,17 @@ namespace KompanzasyonHesapSistemi.Services
                     {
                         builder.Append(bytes[i].ToString("x2"));
                     }
-                    return builder.ToString();
+                    _cachedHwId = builder.ToString();
+                    return _cachedHwId;
                 }
             }
             catch (Exception)
             {
-                // Herhangi bir ManagementException veya başka bir hata olursa
                 return "HWID_ERROR";
             }
         }
 
-        private static string GetCpuId()
+        private string GetCpuId()
         {
             string cpuInfo = string.Empty;
             ManagementClass mc = new ManagementClass("win32_processor");
