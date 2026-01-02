@@ -104,7 +104,12 @@ namespace KompanzasyonHesapSistemi.Forms
         
         private async void FrmAnaSayfa_FormClosing(object? sender, FormClosingEventArgs e)
         {
+            // Eğer programatik olarak çıkış yapılıyorsa (yedekleme sonrası gibi), işlemi durdurma
             if (_isClosing) return;
+
+            // Kullanıcı kapatmaya bastığında, varsayılan kapatma işlemini iptal etmeliyiz
+            // çünkü async işlemler bitene kadar formun hayatta kalması gerekir.
+            e.Cancel = true;
 
             DialogResult result = MessageBox.Show(
                 "Uygulamadan çıkmadan önce verileri yedeklemek istiyor musunuz?",
@@ -115,26 +120,37 @@ namespace KompanzasyonHesapSistemi.Forms
 
             if (result == DialogResult.Yes)
             {
-                _isClosing = true;
                 try
                 {
+                    // Form hala açık, loading gösterebiliriz
+                    Cursor.Current = Cursors.WaitCursor;
                     await _backupService.CreateBackupAsync();
-                    ShowSnackBar("Veriler başarıyla yedeklendi.", 3000); 
+                    Cursor.Current = Cursors.Default;
+                    
+                    // ShowSnackBar yerine MessageBox kullanıyoruz çünkü form kapanmak üzere.
+                    // SnackBar animasyonu veya UI erişimi form kapandıktan sonra tetiklenirse ObjectDisposed hatası veriyor.
+                    MessageBox.Show("Veriler başarıyla yedeklendi. Çıkış yapılıyor.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
-                    ShowSnackBar($"Yedekleme sırasında bir hata oluştu: {ex.Message}", 5000); 
+                    Cursor.Current = Cursors.Default;
+                    MessageBox.Show($"Yedekleme sırasında bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                Application.Exit();
+                finally
+                {
+                    _isClosing = true;
+                    Application.Exit();
+                }
             }
             else if (result == DialogResult.No)
             {
                 _isClosing = true;
                 Application.Exit();
             }
-            else if (result == DialogResult.Cancel)
+            else
             {
-                e.Cancel = true;
+                // İptal durumunda e.Cancel zaten true ayarlandı, hiçbir şey yapmaya gerek yok.
+                _isClosing = false;
             }
         }
 
