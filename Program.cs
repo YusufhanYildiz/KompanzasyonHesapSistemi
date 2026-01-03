@@ -32,6 +32,10 @@ namespace KompanzasyonHesapSistemi
             }
 
             string baseDataPath;
+            // Force Portable Mode as per user request to fix portability issues
+            baseDataPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data");
+
+            /* 
             if (isPortable)
             {
                 baseDataPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data");
@@ -39,7 +43,8 @@ namespace KompanzasyonHesapSistemi
             else
             {
                 baseDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "KompanzasyonHesapSistemi", "Data");
-            }
+            } 
+            */
 
             string logFolder = Path.Combine(baseDataPath, "..", "Logs"); 
             logFolder = Path.GetFullPath(logFolder);
@@ -151,6 +156,7 @@ namespace KompanzasyonHesapSistemi
             services.AddTransient<FrmSifreDegistir>();
             services.AddTransient<FrmSirketIslemleri>();
             services.AddTransient<FrmYedekleme>();
+            services.AddTransient<FrmAyarlar>();
         }
 
         private static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)

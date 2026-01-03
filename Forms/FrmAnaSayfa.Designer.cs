@@ -29,12 +29,14 @@ namespace KompanzasyonHesapSistemi.Forms
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmAnaSayfa));
             this.pnlUst = new MaterialSkin.Controls.MaterialCard();
             this.btnCikis = new MaterialSkin.Controls.MaterialButton();
             this.lblTarihSaat = new MaterialSkin.Controls.MaterialLabel();
             this.lblHosgeldiniz = new MaterialSkin.Controls.MaterialLabel();
             this.pnlMenu = new System.Windows.Forms.Panel();
             this.tableLayoutPanelMenu = new System.Windows.Forms.TableLayoutPanel();
+            this.btnAyarlar = new MaterialSkin.Controls.MaterialButton();
             this.btnGuncelle = new MaterialSkin.Controls.MaterialButton();
             this.btnIletisim = new MaterialSkin.Controls.MaterialButton();
             this.btnSifreDegistir = new MaterialSkin.Controls.MaterialButton();
@@ -65,11 +67,13 @@ namespace KompanzasyonHesapSistemi.Forms
             // 
             // pnlUst
             // 
+            this.pnlUst.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.pnlUst.Controls.Add(this.btnCikis);
             this.pnlUst.Controls.Add(this.lblTarihSaat);
             this.pnlUst.Controls.Add(this.lblHosgeldiniz);
             this.pnlUst.Depth = 0;
             this.pnlUst.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlUst.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.pnlUst.Location = new System.Drawing.Point(3, 64);
             this.pnlUst.Margin = new System.Windows.Forms.Padding(14);
             this.pnlUst.MouseState = MaterialSkin.MouseState.HOVER;
@@ -82,8 +86,10 @@ namespace KompanzasyonHesapSistemi.Forms
             // 
             this.btnCikis.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCikis.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnCikis.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(242)))));
             this.btnCikis.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
             this.btnCikis.Depth = 0;
+            this.btnCikis.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnCikis.HighEmphasis = true;
             this.btnCikis.Icon = null;
             this.btnCikis.Location = new System.Drawing.Point(1217, 20);
@@ -96,38 +102,45 @@ namespace KompanzasyonHesapSistemi.Forms
             this.btnCikis.Text = "Çıkış Yap";
             this.btnCikis.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.btnCikis.UseAccentColor = false;
-            this.btnCikis.UseVisualStyleBackColor = true;
+            this.btnCikis.UseVisualStyleBackColor = false;
             this.btnCikis.Click += new System.EventHandler(this.btnCikis_Click);
             // 
             // lblTarihSaat
             // 
             this.lblTarihSaat.AutoSize = true;
+            this.lblTarihSaat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(242)))));
             this.lblTarihSaat.Depth = 0;
             this.lblTarihSaat.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.lblTarihSaat.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblTarihSaat.Location = new System.Drawing.Point(20, 45);
             this.lblTarihSaat.MouseState = MaterialSkin.MouseState.HOVER;
             this.lblTarihSaat.Name = "lblTarihSaat";
-            this.lblTarihSaat.Size = new System.Drawing.Size(74, 19);
+            this.lblTarihSaat.Size = new System.Drawing.Size(75, 19);
             this.lblTarihSaat.TabIndex = 1;
             this.lblTarihSaat.Text = "Tarih Saat";
             // 
             // lblHosgeldiniz
             // 
             this.lblHosgeldiniz.AutoSize = true;
+            this.lblHosgeldiniz.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(242)))));
             this.lblHosgeldiniz.Depth = 0;
             this.lblHosgeldiniz.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.lblHosgeldiniz.FontType = MaterialSkin.MaterialSkinManager.fontType.H5;
+            this.lblHosgeldiniz.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblHosgeldiniz.Location = new System.Drawing.Point(20, 10);
             this.lblHosgeldiniz.MouseState = MaterialSkin.MouseState.HOVER;
             this.lblHosgeldiniz.Name = "lblHosgeldiniz";
-            this.lblHosgeldiniz.Size = new System.Drawing.Size(135, 29);
+            this.lblHosgeldiniz.Size = new System.Drawing.Size(136, 29);
             this.lblHosgeldiniz.TabIndex = 0;
             this.lblHosgeldiniz.Text = "Hoş Geldiniz";
             // 
             // pnlMenu
             // 
+            this.pnlMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(242)))));
             this.pnlMenu.Controls.Add(this.tableLayoutPanelMenu);
             this.pnlMenu.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pnlMenu.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.pnlMenu.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.pnlMenu.Location = new System.Drawing.Point(3, 144);
             this.pnlMenu.Name = "pnlMenu";
             this.pnlMenu.Size = new System.Drawing.Size(250, 543);
@@ -135,8 +148,10 @@ namespace KompanzasyonHesapSistemi.Forms
             // 
             // tableLayoutPanelMenu
             // 
+            this.tableLayoutPanelMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(242)))));
             this.tableLayoutPanelMenu.ColumnCount = 1;
             this.tableLayoutPanelMenu.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelMenu.Controls.Add(this.btnAyarlar, 0, 8);
             this.tableLayoutPanelMenu.Controls.Add(this.btnGuncelle, 0, 7);
             this.tableLayoutPanelMenu.Controls.Add(this.btnIletisim, 0, 6);
             this.tableLayoutPanelMenu.Controls.Add(this.btnSifreDegistir, 0, 5);
@@ -146,10 +161,13 @@ namespace KompanzasyonHesapSistemi.Forms
             this.tableLayoutPanelMenu.Controls.Add(this.btnHesaplamalar, 0, 1);
             this.tableLayoutPanelMenu.Controls.Add(this.btnSirketler, 0, 0);
             this.tableLayoutPanelMenu.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelMenu.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.tableLayoutPanelMenu.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.tableLayoutPanelMenu.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelMenu.Name = "tableLayoutPanelMenu";
             this.tableLayoutPanelMenu.Padding = new System.Windows.Forms.Padding(10);
-            this.tableLayoutPanelMenu.RowCount = 9;
+            this.tableLayoutPanelMenu.RowCount = 10;
+            this.tableLayoutPanelMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tableLayoutPanelMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tableLayoutPanelMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tableLayoutPanelMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
@@ -162,13 +180,39 @@ namespace KompanzasyonHesapSistemi.Forms
             this.tableLayoutPanelMenu.Size = new System.Drawing.Size(250, 543);
             this.tableLayoutPanelMenu.TabIndex = 0;
             // 
+            // btnAyarlar
+            // 
+            this.btnAyarlar.AutoSize = false;
+            this.btnAyarlar.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnAyarlar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(242)))));
+            this.btnAyarlar.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnAyarlar.Depth = 0;
+            this.btnAyarlar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnAyarlar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnAyarlar.HighEmphasis = true;
+            this.btnAyarlar.Icon = null;
+            this.btnAyarlar.Location = new System.Drawing.Point(14, 496);
+            this.btnAyarlar.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnAyarlar.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnAyarlar.Name = "btnAyarlar";
+            this.btnAyarlar.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.btnAyarlar.Size = new System.Drawing.Size(222, 48);
+            this.btnAyarlar.TabIndex = 8;
+            this.btnAyarlar.Text = "Ayarlar";
+            this.btnAyarlar.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnAyarlar.UseAccentColor = false;
+            this.btnAyarlar.UseVisualStyleBackColor = false;
+            this.btnAyarlar.Click += new System.EventHandler(this.btnAyarlar_Click);
+            // 
             // btnGuncelle
             // 
             this.btnGuncelle.AutoSize = false;
             this.btnGuncelle.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnGuncelle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(242)))));
             this.btnGuncelle.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
             this.btnGuncelle.Depth = 0;
             this.btnGuncelle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnGuncelle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnGuncelle.HighEmphasis = true;
             this.btnGuncelle.Icon = null;
             this.btnGuncelle.Location = new System.Drawing.Point(14, 436);
@@ -181,16 +225,18 @@ namespace KompanzasyonHesapSistemi.Forms
             this.btnGuncelle.Text = "Güncellemeleri Denetle";
             this.btnGuncelle.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.btnGuncelle.UseAccentColor = false;
-            this.btnGuncelle.UseVisualStyleBackColor = true;
+            this.btnGuncelle.UseVisualStyleBackColor = false;
             this.btnGuncelle.Click += new System.EventHandler(this.btnGuncelle_Click);
             // 
             // btnIletisim
             // 
             this.btnIletisim.AutoSize = false;
             this.btnIletisim.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnIletisim.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(242)))));
             this.btnIletisim.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
             this.btnIletisim.Depth = 0;
             this.btnIletisim.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnIletisim.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnIletisim.HighEmphasis = true;
             this.btnIletisim.Icon = null;
             this.btnIletisim.Location = new System.Drawing.Point(14, 376);
@@ -203,16 +249,18 @@ namespace KompanzasyonHesapSistemi.Forms
             this.btnIletisim.Text = "İletişim";
             this.btnIletisim.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.btnIletisim.UseAccentColor = false;
-            this.btnIletisim.UseVisualStyleBackColor = true;
+            this.btnIletisim.UseVisualStyleBackColor = false;
             this.btnIletisim.Click += new System.EventHandler(this.btnIletisim_Click);
             // 
             // btnSifreDegistir
             // 
             this.btnSifreDegistir.AutoSize = false;
             this.btnSifreDegistir.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnSifreDegistir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(242)))));
             this.btnSifreDegistir.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
             this.btnSifreDegistir.Depth = 0;
             this.btnSifreDegistir.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnSifreDegistir.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnSifreDegistir.HighEmphasis = true;
             this.btnSifreDegistir.Icon = null;
             this.btnSifreDegistir.Location = new System.Drawing.Point(14, 316);
@@ -225,16 +273,18 @@ namespace KompanzasyonHesapSistemi.Forms
             this.btnSifreDegistir.Text = "Şifre Değiştir";
             this.btnSifreDegistir.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.btnSifreDegistir.UseAccentColor = false;
-            this.btnSifreDegistir.UseVisualStyleBackColor = true;
+            this.btnSifreDegistir.UseVisualStyleBackColor = false;
             this.btnSifreDegistir.Click += new System.EventHandler(this.btnSifreDegistir_Click);
             // 
             // btnYedekleme
             // 
             this.btnYedekleme.AutoSize = false;
             this.btnYedekleme.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnYedekleme.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(242)))));
             this.btnYedekleme.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
             this.btnYedekleme.Depth = 0;
             this.btnYedekleme.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnYedekleme.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnYedekleme.HighEmphasis = true;
             this.btnYedekleme.Icon = null;
             this.btnYedekleme.Location = new System.Drawing.Point(14, 256);
@@ -247,16 +297,18 @@ namespace KompanzasyonHesapSistemi.Forms
             this.btnYedekleme.Text = "Yedekleme";
             this.btnYedekleme.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.btnYedekleme.UseAccentColor = false;
-            this.btnYedekleme.UseVisualStyleBackColor = true;
+            this.btnYedekleme.UseVisualStyleBackColor = false;
             this.btnYedekleme.Click += new System.EventHandler(this.btnYedekleme_Click);
             // 
             // btnDashboard
             // 
             this.btnDashboard.AutoSize = false;
             this.btnDashboard.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnDashboard.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(242)))));
             this.btnDashboard.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
             this.btnDashboard.Depth = 0;
             this.btnDashboard.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnDashboard.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnDashboard.HighEmphasis = true;
             this.btnDashboard.Icon = null;
             this.btnDashboard.Location = new System.Drawing.Point(14, 196);
@@ -269,16 +321,18 @@ namespace KompanzasyonHesapSistemi.Forms
             this.btnDashboard.Text = "Grafik Arayüzü";
             this.btnDashboard.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.btnDashboard.UseAccentColor = false;
-            this.btnDashboard.UseVisualStyleBackColor = true;
+            this.btnDashboard.UseVisualStyleBackColor = false;
             this.btnDashboard.Click += new System.EventHandler(this.btnDashboard_Click);
             // 
             // btnIsTakip
             // 
             this.btnIsTakip.AutoSize = false;
             this.btnIsTakip.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnIsTakip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(242)))));
             this.btnIsTakip.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
             this.btnIsTakip.Depth = 0;
             this.btnIsTakip.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnIsTakip.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnIsTakip.HighEmphasis = true;
             this.btnIsTakip.Icon = null;
             this.btnIsTakip.Location = new System.Drawing.Point(14, 136);
@@ -291,16 +345,18 @@ namespace KompanzasyonHesapSistemi.Forms
             this.btnIsTakip.Text = "İş Takip";
             this.btnIsTakip.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.btnIsTakip.UseAccentColor = false;
-            this.btnIsTakip.UseVisualStyleBackColor = true;
+            this.btnIsTakip.UseVisualStyleBackColor = false;
             this.btnIsTakip.Click += new System.EventHandler(this.btnIsTakip_Click);
             // 
             // btnHesaplamalar
             // 
             this.btnHesaplamalar.AutoSize = false;
             this.btnHesaplamalar.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnHesaplamalar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(242)))));
             this.btnHesaplamalar.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
             this.btnHesaplamalar.Depth = 0;
             this.btnHesaplamalar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnHesaplamalar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnHesaplamalar.HighEmphasis = true;
             this.btnHesaplamalar.Icon = null;
             this.btnHesaplamalar.Location = new System.Drawing.Point(14, 76);
@@ -313,16 +369,18 @@ namespace KompanzasyonHesapSistemi.Forms
             this.btnHesaplamalar.Text = "Hesaplamalar";
             this.btnHesaplamalar.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.btnHesaplamalar.UseAccentColor = false;
-            this.btnHesaplamalar.UseVisualStyleBackColor = true;
+            this.btnHesaplamalar.UseVisualStyleBackColor = false;
             this.btnHesaplamalar.Click += new System.EventHandler(this.btnHesaplamalar_Click);
             // 
             // btnSirketler
             // 
             this.btnSirketler.AutoSize = false;
             this.btnSirketler.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnSirketler.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(242)))));
             this.btnSirketler.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
             this.btnSirketler.Depth = 0;
             this.btnSirketler.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnSirketler.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnSirketler.HighEmphasis = true;
             this.btnSirketler.Icon = null;
             this.btnSirketler.Location = new System.Drawing.Point(14, 16);
@@ -335,14 +393,17 @@ namespace KompanzasyonHesapSistemi.Forms
             this.btnSirketler.Text = "Şirket İşlemleri";
             this.btnSirketler.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.btnSirketler.UseAccentColor = false;
-            this.btnSirketler.UseVisualStyleBackColor = true;
+            this.btnSirketler.UseVisualStyleBackColor = false;
             this.btnSirketler.Click += new System.EventHandler(this.btnSirketler_Click);
             // 
             // pnlIcerik
             // 
+            this.pnlIcerik.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(242)))));
             this.pnlIcerik.Controls.Add(this.tableLayoutPanelGuide);
             this.pnlIcerik.Controls.Add(this.lblMesaj);
             this.pnlIcerik.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlIcerik.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.pnlIcerik.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.pnlIcerik.Location = new System.Drawing.Point(253, 144);
             this.pnlIcerik.Name = "pnlIcerik";
             this.pnlIcerik.Padding = new System.Windows.Forms.Padding(20);
@@ -354,12 +415,15 @@ namespace KompanzasyonHesapSistemi.Forms
             this.tableLayoutPanelGuide.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanelGuide.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(242)))));
             this.tableLayoutPanelGuide.ColumnCount = 2;
             this.tableLayoutPanelGuide.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanelGuide.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanelGuide.Controls.Add(this.cardJobGuide, 0, 0);
             this.tableLayoutPanelGuide.Controls.Add(this.cardCalcGuide, 1, 0);
             this.tableLayoutPanelGuide.Controls.Add(this.lblGuideNote, 0, 1);
+            this.tableLayoutPanelGuide.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.tableLayoutPanelGuide.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.tableLayoutPanelGuide.Location = new System.Drawing.Point(20, 70);
             this.tableLayoutPanelGuide.Name = "tableLayoutPanelGuide";
             this.tableLayoutPanelGuide.RowCount = 2;
@@ -386,25 +450,31 @@ namespace KompanzasyonHesapSistemi.Forms
             // 
             // lblJobColumns
             // 
+            this.lblJobColumns.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(242)))));
             this.lblJobColumns.Depth = 0;
             this.lblJobColumns.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.lblJobColumns.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblJobColumns.Location = new System.Drawing.Point(17, 50);
             this.lblJobColumns.MouseState = MaterialSkin.MouseState.HOVER;
             this.lblJobColumns.Name = "lblJobColumns";
             this.lblJobColumns.Size = new System.Drawing.Size(450, 300);
             this.lblJobColumns.TabIndex = 1;
-            this.lblJobColumns.Text = "Sütunlar (Sırasıyla):\r\n1. Şirket Adı (Sistemle aynı olmalı)\r\n2. Tarih (GG.AA.YYYY)\r\n3. İş Açıklaması\r\n4. İş Ücreti (Sayı)\r\n5. Alınan Tutar (Sayı)\r\n\r\n* İlk satır başlık olarak kabul edilir.";
+            this.lblJobColumns.Text = "Sütunlar (Sırasıyla):\r\n1. Şirket Adı (Sistemle aynı olmalı)\r\n2. Tarih (GG.AA.YYYY" +
+    ")\r\n3. İş Açıklaması\r\n4. İş Ücreti (Sayı)\r\n5. Alınan Tutar (Sayı)\r\n\r\n* İlk satır " +
+    "başlık olarak kabul edilir.";
             // 
             // lblJobTitle
             // 
             this.lblJobTitle.AutoSize = true;
+            this.lblJobTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(242)))));
             this.lblJobTitle.Depth = 0;
-            this.lblJobTitle.Font = new System.Drawing.Font("Roboto", 19F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.lblJobTitle.Font = new System.Drawing.Font("Roboto Medium", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.lblJobTitle.FontType = MaterialSkin.MaterialSkinManager.fontType.H6;
+            this.lblJobTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblJobTitle.Location = new System.Drawing.Point(17, 14);
             this.lblJobTitle.MouseState = MaterialSkin.MouseState.HOVER;
             this.lblJobTitle.Name = "lblJobTitle";
-            this.lblJobTitle.Size = new System.Drawing.Size(157, 22);
+            this.lblJobTitle.Size = new System.Drawing.Size(197, 24);
             this.lblJobTitle.TabIndex = 0;
             this.lblJobTitle.Text = "İş Takip Excel Formatı";
             // 
@@ -426,53 +496,61 @@ namespace KompanzasyonHesapSistemi.Forms
             // 
             // lblCalcColumns
             // 
+            this.lblCalcColumns.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(242)))));
             this.lblCalcColumns.Depth = 0;
             this.lblCalcColumns.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.lblCalcColumns.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblCalcColumns.Location = new System.Drawing.Point(17, 50);
             this.lblCalcColumns.MouseState = MaterialSkin.MouseState.HOVER;
             this.lblCalcColumns.Name = "lblCalcColumns";
             this.lblCalcColumns.Size = new System.Drawing.Size(450, 300);
             this.lblCalcColumns.TabIndex = 1;
-            this.lblCalcColumns.Text = "Sütunlar (Sırasıyla):\r\n1. Şirket Adı\r\n2. Tarih\r\n3. Önceki Aktif\r\n4. Önceki Endüktif\r\n5. Önceki Kapasitif\r\n6. Mevcut Aktif\r\n7. Mevcut Endüktif\r\n8. Mevcut Kapasitif\r\n\r\n* Sayısal değerlerde nokta/virgül ayrımına dikkat ediniz.";
+            this.lblCalcColumns.Text = resources.GetString("lblCalcColumns.Text");
             // 
             // lblCalcTitle
             // 
             this.lblCalcTitle.AutoSize = true;
+            this.lblCalcTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(242)))));
             this.lblCalcTitle.Depth = 0;
-            this.lblCalcTitle.Font = new System.Drawing.Font("Roboto", 19F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.lblCalcTitle.Font = new System.Drawing.Font("Roboto Medium", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.lblCalcTitle.FontType = MaterialSkin.MaterialSkinManager.fontType.H6;
+            this.lblCalcTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblCalcTitle.Location = new System.Drawing.Point(17, 14);
             this.lblCalcTitle.MouseState = MaterialSkin.MouseState.HOVER;
             this.lblCalcTitle.Name = "lblCalcTitle";
-            this.lblCalcTitle.Size = new System.Drawing.Size(193, 22);
+            this.lblCalcTitle.Size = new System.Drawing.Size(251, 24);
             this.lblCalcTitle.TabIndex = 0;
             this.lblCalcTitle.Text = "Hesaplamalar Excel Formatı";
             // 
             // lblGuideNote
             // 
+            this.lblGuideNote.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(242)))));
             this.tableLayoutPanelGuide.SetColumnSpan(this.lblGuideNote, 2);
             this.lblGuideNote.Depth = 0;
             this.lblGuideNote.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblGuideNote.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.lblGuideNote.ForeColor = System.Drawing.Color.Red;
+            this.lblGuideNote.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblGuideNote.Location = new System.Drawing.Point(3, 393);
             this.lblGuideNote.MouseState = MaterialSkin.MouseState.HOVER;
             this.lblGuideNote.Name = "lblGuideNote";
             this.lblGuideNote.Size = new System.Drawing.Size(1030, 60);
             this.lblGuideNote.TabIndex = 2;
-            this.lblGuideNote.Text = "ÖNEMLİ: Excel\'deki Şirket Adı sütunu, programda kayıtlı olan isimlerle tam olarak eşleşmelidir. Eşleşmeyen satırlar atlanacaktır.";
+            this.lblGuideNote.Text = "ÖNEMLİ: Excel\'deki Şirket Adı sütunu, programda kayıtlı olan isimlerle tam olarak" +
+    " eşleşmelidir. Eşleşmeyen satırlar atlanacaktır.";
             this.lblGuideNote.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblMesaj
             // 
             this.lblMesaj.AutoSize = true;
+            this.lblMesaj.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(242)))));
             this.lblMesaj.Depth = 0;
             this.lblMesaj.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.lblMesaj.FontType = MaterialSkin.MaterialSkinManager.fontType.H5;
+            this.lblMesaj.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblMesaj.Location = new System.Drawing.Point(20, 20);
             this.lblMesaj.MouseState = MaterialSkin.MouseState.HOVER;
             this.lblMesaj.Name = "lblMesaj";
-            this.lblMesaj.Size = new System.Drawing.Size(430, 29);
+            this.lblMesaj.Size = new System.Drawing.Size(436, 29);
             this.lblMesaj.TabIndex = 0;
             this.lblMesaj.Text = "Excel Veri Alma Kılavuzu (.xlsx, .xls, .csv)";
             this.lblMesaj.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -485,7 +563,7 @@ namespace KompanzasyonHesapSistemi.Forms
             // 
             // FrmAnaSayfa
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1332, 690);
             this.Controls.Add(this.pnlIcerik);
@@ -502,7 +580,6 @@ namespace KompanzasyonHesapSistemi.Forms
             this.pnlIcerik.ResumeLayout(false);
             this.pnlIcerik.PerformLayout();
             this.tableLayoutPanelGuide.ResumeLayout(false);
-            this.tableLayoutPanelGuide.PerformLayout();
             this.cardJobGuide.ResumeLayout(false);
             this.cardJobGuide.PerformLayout();
             this.cardCalcGuide.ResumeLayout(false);
@@ -530,6 +607,7 @@ namespace KompanzasyonHesapSistemi.Forms
         private MaterialSkin.Controls.MaterialButton btnSifreDegistir;
         private MaterialSkin.Controls.MaterialButton btnIletisim;
         private MaterialSkin.Controls.MaterialButton btnGuncelle;
+        private MaterialSkin.Controls.MaterialButton btnAyarlar;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelGuide;
         private MaterialSkin.Controls.MaterialCard cardJobGuide;
         private MaterialSkin.Controls.MaterialLabel lblJobTitle;

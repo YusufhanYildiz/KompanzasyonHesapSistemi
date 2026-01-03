@@ -22,8 +22,7 @@ namespace KompanzasyonHesapSistemi.Services
             IJsonSingletonService<BackupSettings> backupSettingsService,
             IJsonSingletonService<Dictionary<string, string>> generalSettingsService)
         {
-            _dataDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                                          "KompanzasyonHesapSistemi", "Data");
+            _dataDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data");
             _backupSettingsService = backupSettingsService;
             _generalSettingsService = generalSettingsService;
             _settings = new BackupSettings();
@@ -39,8 +38,7 @@ namespace KompanzasyonHesapSistemi.Services
                 // Ensure BackupPath is absolute
                 if (!Path.IsPathRooted(_settings.BackupPath))
                 {
-                    _settings.BackupPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                                                        "KompanzasyonHesapSistemi", _settings.BackupPath);
+                    _settings.BackupPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, _settings.BackupPath);
                 }
 
                 if (!Directory.Exists(_settings.BackupPath))
@@ -59,6 +57,21 @@ namespace KompanzasyonHesapSistemi.Services
         private async Task SaveSettingsAsync()
         {
             await _backupSettingsService.SaveAsync(_settings);
+        }
+
+        public bool IsEnabled => _settings.IsEnabled;
+        public bool AutoBackupOnExit => _settings.AutoBackupOnExit;
+
+        public async Task InitializeAsync()
+        {
+            await _initialization.Value;
+        }
+
+        public async Task UpdateSettingsAsync(Action<BackupSettings> updateAction)
+        {
+            await _initialization.Value;
+            updateAction(_settings);
+            await SaveSettingsAsync();
         }
 
         public async Task CreateBackupAsync()
@@ -92,12 +105,54 @@ namespace KompanzasyonHesapSistemi.Services
 
                 Log.Information($"Backup created successfully: {backupFilePath}");
                 await CleanOldBackupsAsync();
+
+                // Verify the backup
+                bool isVerified = await VerifyBackupAsync(backupFilePath);
+                if (!isVerified)
+                {
+                    Log.Warning($"Backup verification failed for {backupFilePath}. Deleting corrupted file.");
+                    File.Delete(backupFilePath);
+                    throw new IOException("Yedek dosyası oluşturuldu fakat doğrulama başarısız oldu.");
+                }
+
+                Log.Information($"Backup created and verified successfully: {backupFilePath}");
             }
             catch (Exception ex)
             {
                 Log.Error(ex, "Backup creation failed.");
                 throw;
             }
+        }
+
+        public async Task<bool> VerifyBackupAsync(string backupPath)
+        {
+            return await Task.Run(() =>
+            {
+                try
+                {
+                    if (!File.Exists(backupPath)) return false;
+
+                    using (var zipStream = new FileStream(backupPath, FileMode.Open, FileAccess.Read))
+                    using (var archive = new ZipArchive(zipStream, ZipArchiveMode.Read))
+                    {
+                        // Check if we can read entries
+                        foreach (var entry in archive.Entries)
+                        {
+                            using (var entryStream = entry.Open())
+                            {
+                                // Just try to read a byte to ensure stream is readable
+                                entryStream.ReadByte();
+                            }
+                        }
+                        return archive.Entries.Count > 0;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex, $"Backup verification failed for {backupPath}");
+                    return false;
+                }
+            });
         }
 
         public async Task<bool> RestoreBackupAsync(string backupPath)

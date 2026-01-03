@@ -136,53 +136,79 @@ namespace KompanzasyonHesapSistemi.Forms
         
         private async void FrmAnaSayfa_FormClosing(object? sender, FormClosingEventArgs e)
         {
-            // Eğer programatik olarak çıkış yapılıyorsa (yedekleme sonrası gibi), işlemi durdurma
             if (_isClosing) return;
 
-            // Kullanıcı kapatmaya bastığında, varsayılan kapatma işlemini iptal etmeliyiz
-            // çünkü async işlemler bitene kadar formun hayatta kalması gerekir.
             e.Cancel = true;
 
-            DialogResult result = MessageBox.Show(
-                "Uygulamadan çıkmadan önce verileri yedeklemek istiyor musunuz?",
-                "Yedekleme ve Çıkış Onayı",
-                MessageBoxButtons.YesNoCancel,
-                MessageBoxIcon.Question
-            );
-
-            if (result == DialogResult.Yes)
+            try
             {
-                try
+                // Ensure settings are loaded
+                await _backupService.InitializeAsync();
+
+                if (_backupService.AutoBackupOnExit)
                 {
-                    // Form hala açık, loading gösterebiliriz
+                    // Otomatik yedekleme aktif
                     Cursor.Current = Cursors.WaitCursor;
-                    await _backupService.CreateBackupAsync();
-                    Cursor.Current = Cursors.Default;
+                    // Kullanıcıya bilgi ver (kısa süreli) veya splash
+                    // Form kapanırken MessageBox açmak can sıkıcı olabilir, ama güvenli.
+                    // "Yedekleniyor..." diye bir yazı güncellemesi yapabiliriz status bar'da.
+                    /* StatusStrip removed as it doesn't exist
+                    if (statusStrip1 != null && statusStrip1.Items.Count > 0)
+                         statusStrip1.Items[0].Text = "Otomatik yedek alınıyor, lütfen bekleyin...";
+                    */
                     
-                    // ShowSnackBar yerine MessageBox kullanıyoruz çünkü form kapanmak üzere.
-                    // SnackBar animasyonu veya UI erişimi form kapandıktan sonra tetiklenirse ObjectDisposed hatası veriyor.
-                    MessageBox.Show("Veriler başarıyla yedeklendi. Çıkış yapılıyor.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                catch (Exception ex)
-                {
+                    await _backupService.CreateBackupAsync();
+                    
                     Cursor.Current = Cursors.Default;
-                    MessageBox.Show($"Yedekleme sırasında bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                finally
-                {
+                    // Başarılı ise sessizce çık
                     _isClosing = true;
                     Application.Exit();
                 }
+                else
+                {
+                    // Manuel onay iste
+                    DialogResult result = MessageBox.Show(
+                        "Uygulamadan çıkmadan önce verileri yedeklemek istiyor musunuz?",
+                        "Yedekleme ve Çıkış Onayı",
+                        MessageBoxButtons.YesNoCancel,
+                        MessageBoxIcon.Question
+                    );
+
+                    if (result == DialogResult.Yes)
+                    {
+                        Cursor.Current = Cursors.WaitCursor;
+                        await _backupService.CreateBackupAsync();
+                        Cursor.Current = Cursors.Default;
+                        MessageBox.Show("Veriler başarıyla yedeklendi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        _isClosing = true;
+                        Application.Exit();
+                    }
+                    else if (result == DialogResult.No)
+                    {
+                        _isClosing = true;
+                        Application.Exit();
+                    }
+                    else
+                    {
+                        _isClosing = false;
+                    }
+                }
             }
-            else if (result == DialogResult.No)
+            catch (Exception ex)
             {
-                _isClosing = true;
-                Application.Exit();
-            }
-            else
-            {
-                // İptal durumunda e.Cancel zaten true ayarlandı, hiçbir şey yapmaya gerek yok.
-                _isClosing = false;
+                Cursor.Current = Cursors.Default;
+                MessageBox.Show($"Yedekleme sırasında bir hata oluştu:\n{ex.Message}\n\nUygulama yine de kapatılsın mı?", 
+                    "Yedekleme Hatası", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                
+                if (DialogResult.Yes == MessageBox.Show("Hata oluştu. Çıkış yapılsın mı?", "Çıkış", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
+                {
+                     _isClosing = true;
+                     Application.Exit();
+                }
+                else
+                {
+                    _isClosing = false;
+                }
             }
         }
 
@@ -249,6 +275,14 @@ namespace KompanzasyonHesapSistemi.Forms
                     btnGuncelle.Text = "YENİDEN BAŞLAT";
                     btnGuncelle.BackColor = Color.DarkOrange;
                 }
+            }
+        }
+
+        private void btnAyarlar_Click(object sender, EventArgs e)
+        {
+            using (var frm = _serviceProvider.GetRequiredService<FrmAyarlar>())
+            {
+                frm.ShowDialog();
             }
         }
     }

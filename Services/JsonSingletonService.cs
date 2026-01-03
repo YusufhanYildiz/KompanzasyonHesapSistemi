@@ -23,8 +23,7 @@ namespace KompanzasyonHesapSistemi.Services
 
         private string GetDataDirectory()
         {
-            string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            return Path.Combine(appDataFolder, "KompanzasyonHesapSistemi", "Data");
+            return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data");
         }
 
         private void EnsureDataDirectoryExists()
