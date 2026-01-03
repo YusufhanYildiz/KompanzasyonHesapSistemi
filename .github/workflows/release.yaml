@@ -47,11 +47,29 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          # Set Encoding to UTF-8 to handle Turkish characters correctly
+          [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+          
           # Önce mevcut bir release varsa sil (çakışmayı önlemek için)
           gh release delete "v${{ steps.vars.outputs.tag }}" --yes || true
           
           # Velopack ile yükle
           vpk upload github --repoUrl "https://github.com/${{ github.repository }}" --token "$env:GITHUB_TOKEN" --publish --outputDir "./Releases" --tag "v${{ steps.vars.outputs.tag }}"
           
-          # Release açıklamasını Türkçe olarak güncelle
-          gh release edit "v${{ steps.vars.outputs.tag }}" --title "v${{ steps.vars.outputs.tag }} - Kararlılık ve Güvenlik Güncellemesi" --notes "# v${{ steps.vars.outputs.tag }} Güncellemesi`n`n## 🛠 Düzeltmeler ve İyileştirmeler`n- **Kritik Düzeltme:** Uygulamadan çıkış yapılırken yedekleme onayı verildiğinde oluşan çökme sorunu (ObjectDisposedException) giderildi.`n- **Güvenlik:** Kod tabanındaki yönetici kimlik doğrulama ve veri işleme süreçleri güvenlik açısından sıkılaştırıldı.`n- **Dokümantasyon:** Kapsamlı README.md eklendi.`n`n## 📦 Kurulum`nAşağıdaki Assets kısmından KompanzasyonHesap-win-Setup.exe dosyasını indirebilirsiniz."
+          # Release notlarını bir dosyaya yaz (Encoding sorununu kesin çözmek için)
+          $releaseNotes = @"
+          # v${{ steps.vars.outputs.tag }} Güncellemesi
+
+          ## 🛠 Düzeltmeler ve İyileştirmeler
+          - **Kritik Düzeltme:** Uygulamadan çıkış yapılırken yedekleme onayı verildiğinde oluşan çökme sorunu (ObjectDisposedException) giderildi.
+          - **Güvenlik:** Kod tabanındaki yönetici kimlik doğrulama ve veri işleme süreçleri güvenlik açısından sıkılaştırıldı.
+          - **Dokümantasyon:** Kapsamlı README.md eklendi.
+
+          ## 📦 Kurulum
+          Aşağıdaki Assets kısmından KompanzasyonHesap-win-Setup.exe dosyasını indirebilirsiniz.
+          "@
+          
+          $releaseNotes | Out-File -FilePath "release_notes.md" -Encoding utf8
+
+          # Release açıklamasını dosyadadan güncelle
+          gh release edit "v${{ steps.vars.outputs.tag }}" --title "v${{ steps.vars.outputs.tag }} - Kararlılık ve Güvenlik Güncellemesi" --notes-file "release_notes.md"
