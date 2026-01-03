@@ -50,26 +50,44 @@ jobs:
           # Set Encoding to UTF-8 to handle Turkish characters correctly
           [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
           
-          # Önce mevcut bir release varsa sil (çakışmayı önlemek için)
+          # Önce olası eski draft/release'i temizle
           gh release delete "v${{ steps.vars.outputs.tag }}" --yes || true
           
-          # Velopack ile yükle
-          vpk upload github --repoUrl "https://github.com/${{ github.repository }}" --token "$env:GITHUB_TOKEN" --publish --outputDir "./Releases" --tag "v${{ steps.vars.outputs.tag }}"
-          
-          # Release notlarını bir dosyaya yaz (Encoding sorununu kesin çözmek için)
+          # Release Notlarını Oluştur (Türkçe karakter desteği için dosyaya yazıyoruz)
           $releaseNotes = @"
-          # v${{ steps.vars.outputs.tag }} Güncellemesi
+          # v${{ steps.vars.outputs.tag }} - Taşınabilirlik ve Gelişmiş Yedekleme 🚀
 
-          ## 🛠 Düzeltmeler ve İyileştirmeler
-          - **Kritik Düzeltme:** Uygulamadan çıkış yapılırken yedekleme onayı verildiğinde oluşan çökme sorunu (ObjectDisposedException) giderildi.
-          - **Güvenlik:** Kod tabanındaki yönetici kimlik doğrulama ve veri işleme süreçleri güvenlik açısından sıkılaştırıldı.
-          - **Dokümantasyon:** Kapsamlı README.md eklendi.
+          Bu sürüm, uygulamanın taşınabilirliğini (portable) maksimize eder ve veri güvenliği için yeni mekanizmalar sunar.
+
+          ## ✨ Yenilikler
+          
+          ### 🎒 Tam Taşınabilir Mod (Portable)
+          - Uygulama artık tüm verilerini (Data, Backups, Logs) kendi çalıştığı klasör içinde saklar.
+          - `AppData` bağımlılığı tamamen kaldırılmıştır. USB bellekte sorunsuz çalışır.
+
+          ### 🛡️ Akıllı Yedekleme Sistemi
+          - **Otomatik Yedekleme:** Uygulama kapatılırken verileriniz artık otomatik olarak yedeklenir.
+          - **Bütünlük Doğrulaması:** Yedek dosyaları oluşturulduktan sonra bozuk olup olmadıkları otomatik kontrol edilir.
+          
+          ### ⚙️ Ayarlar Arayüzü
+          - Ana menüye yeni **Ayarlar** sekmesi eklendi.
+          - "Çıkışta Otomatik Yedekle" özelliği buradan açılıp kapatılabilir.
+
+          ### 🎨 Görsel İyileştirmeler
+          - 1080p ve yüksek çözünürlüklü ekranlar için menü hizalamaları düzeltildi.
+          - Buton yerleşimleri optimize edildi.
 
           ## 📦 Kurulum
-          Aşağıdaki Assets kısmından KompanzasyonHesap-win-Setup.exe dosyasını indirebilirsiniz.
+          Uygulamayı indirmek için aşağıdaki **Assets** kısmından **KompanzasyonHesap-win-Setup.exe** dosyasını kullanabilirsiniz.
           "@
           
+          # Dosyayı UTF8 olarak kaydet (BOM olmadan da olur ama PowerShell default UTF8WithBOM yapabilir, gh action okurken sorun çıkarmaz)
           $releaseNotes | Out-File -FilePath "release_notes.md" -Encoding utf8
 
-          # Release açıklamasını dosyadadan güncelle
-          gh release edit "v${{ steps.vars.outputs.tag }}" --title "v${{ steps.vars.outputs.tag }} - Kararlılık ve Güvenlik Güncellemesi" --notes-file "release_notes.md"
+          # Velopack ile Release'i oluştur ve dosyaları yükle
+          # Velopack 'upload' komutu aslında release'i de oluşturur.
+          vpk upload github --repoUrl "https://github.com/${{ github.repository }}" --token "$env:GITHUB_TOKEN" --publish --outputDir "./Releases" --tag "v${{ steps.vars.outputs.tag }}"
+          
+          # Release oluşturulduktan sonra başlık ve açıklamayı güncelle
+          # Not: Velopack varsayılan bir body ile oluşturabilir, biz kendi notlarımızla eziyoruz.
+          gh release edit "v${{ steps.vars.outputs.tag }}" --title "v${{ steps.vars.outputs.tag }} - Portable Mod & Otomatik Yedekleme" --notes-file "release_notes.md"
