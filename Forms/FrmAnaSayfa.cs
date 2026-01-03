@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Velopack;
 
 namespace KompanzasyonHesapSistemi.Forms
 {
@@ -20,6 +21,7 @@ namespace KompanzasyonHesapSistemi.Forms
         private readonly UpdateService _updateService;
         private readonly IServiceProvider _serviceProvider;
         private bool _isClosing = false;
+        private UpdateInfo? _pendingUpdate = null;
 
         public FrmAnaSayfa(BackupService backupService, UpdateService updateService, IServiceProvider serviceProvider)
         {
@@ -29,7 +31,17 @@ namespace KompanzasyonHesapSistemi.Forms
             _serviceProvider = serviceProvider;
             _displayName = "Admin";
 
-            _updateService.NotifyMessage = (message, duration) => ShowSnackBar(message, duration);
+            _updateService.NotifyMessage = (message, duration) => 
+            {
+                if (this.InvokeRequired)
+                {
+                    this.Invoke(new Action(() => ShowSnackBar(message, duration)));
+                }
+                else
+                {
+                    ShowSnackBar(message, duration);
+                }
+            };
             
             FormAyarlari();
             
@@ -45,8 +57,28 @@ namespace KompanzasyonHesapSistemi.Forms
         
         private async void CheckForUpdatesSilently()
         {
-            await Task.Delay(2000); 
-            await _updateService.CheckAndApplyUpdatesAsync(true);
+            await Task.Delay(5000); // Açılışta sistemi yormamak için biraz daha bekle
+            var updateInfo = await _updateService.CheckAndDownloadUpdatesAsync(true);
+            
+            if (updateInfo != null)
+            {
+                _pendingUpdate = updateInfo;
+                if (this.InvokeRequired)
+                {
+                    this.Invoke(new Action(() => 
+                    {
+                        btnGuncelle.Text = "YENİDEN BAŞLAT";
+                        btnGuncelle.BackColor = Color.DarkOrange; // Dikkat çek
+                        ShowSnackBar("Yeni sürüm indirildi. Yüklemek için 'YENİDEN BAŞLAT' butonuna basın.", 5000);
+                    }));
+                }
+                else
+                {
+                    btnGuncelle.Text = "YENİDEN BAŞLAT";
+                    btnGuncelle.BackColor = Color.DarkOrange;
+                    ShowSnackBar("Yeni sürüm indirildi. Yüklemek için 'YENİDEN BAŞLAT' butonuna basın.", 5000);
+                }
+            }
         }
 
         private void FormAyarlari()
@@ -180,9 +212,44 @@ namespace KompanzasyonHesapSistemi.Forms
 
         private async void btnGuncelle_Click(object sender, EventArgs e)
         {
+            if (_pendingUpdate != null)
+            {
+                var result = MessageBox.Show(
+                    "Güncelleme zaten indirildi ve hazır. Uygulamayı şimdi yeniden başlatıp güncellemek ister misiniz?",
+                    "Güncelleme Hazır",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    _updateService.ApplyUpdatesAndRestart(_pendingUpdate);
+                }
+                return;
+            }
+
             Cursor.Current = Cursors.WaitCursor;
-            await _updateService.CheckAndApplyUpdatesAsync(false);
+            var updateInfo = await _updateService.CheckAndDownloadUpdatesAsync(false);
             Cursor.Current = Cursors.Default;
+
+            if (updateInfo != null)
+            {
+                _pendingUpdate = updateInfo;
+                var result = MessageBox.Show(
+                    "Güncelleme başarıyla indirildi. Uygulamayı şimdi yeniden başlatıp güncellemek ister misiniz?",
+                    "Güncelleme Hazır",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    _updateService.ApplyUpdatesAndRestart(updateInfo);
+                }
+                else
+                {
+                    btnGuncelle.Text = "YENİDEN BAŞLAT";
+                    btnGuncelle.BackColor = Color.DarkOrange;
+                }
+            }
         }
     }
 }
