@@ -3,6 +3,9 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net48</TargetFramework>
+    <AssemblyName>KompanzasyonHesap</AssemblyName>
+    <Title>KompanzasyonHesap</Title>
+    <Product>KompanzasyonHesap</Product>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>

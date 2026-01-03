@@ -42,7 +42,7 @@ namespace KompanzasyonHesapSistemi
             }
             else
             {
-                baseDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "KompanzasyonHesapSistemi", "Data");
+                baseDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "KompanzasyonHesap", "Data");
             } 
             */
 
@@ -71,7 +71,7 @@ namespace KompanzasyonHesapSistemi
                         if (!isPortable) 
                         {
                             string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-                            string dataPath = Path.Combine(appDataFolder, "KompanzasyonHesapSistemi");
+                            string dataPath = Path.Combine(appDataFolder, "KompanzasyonHesap");
                             if (Directory.Exists(dataPath)) Directory.Delete(dataPath, true);
                         }
                     }

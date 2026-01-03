@@ -40,7 +40,7 @@ jobs:
 
       - name: Create Velopack Package
         run: |
-          vpk pack --packId "KompanzasyonHesap" --packVersion ${{ steps.vars.outputs.tag }} --packDir "./publish" --mainExe "KompanzasyonHesapSistemi.exe" --icon "Calculator_30001.ico" --outputDir "./Releases"
+          vpk pack --packId "KompanzasyonHesap" --packVersion ${{ steps.vars.outputs.tag }} --packDir "./publish" --mainExe "KompanzasyonHesap.exe" --icon "Calculator_30001.ico" --outputDir "./Releases"
 
       - name: Upload to GitHub Release
         shell: pwsh
